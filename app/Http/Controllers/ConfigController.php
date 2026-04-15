@@ -74,11 +74,25 @@ class ConfigController extends Controller
             'state' => 'nullable|string|max:2',
             'password' => 'nullable|string|min:8|confirmed',
             'current_password' => 'nullable|required_with:password|string|min:8|current_password',
+            'bio' => 'nullable|string|max:500',
         ]);
 
         $data = collect($validated)->except(['password', 'current_password'])->toArray();
 
         $user->update($data);
+
+        if ($request->hasFile('avatar')) {
+
+            $file = $request->file('avatar');
+
+            $filename = time().'.'.$file->getClientOriginalExtension();
+
+            $path = $file->storeAs('avatars', $filename, 'public');
+
+            $user->update([
+                'avatar' => $path,
+            ]);
+        }
 
         if (! empty($validated['password'])) {
             $user->update([

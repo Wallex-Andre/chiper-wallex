@@ -53,13 +53,16 @@
                     </defs>
                 </svg>
             </a>
+            <a href="/?about=1" class="btn btn-ghost btn-sm">
+                About
+            </a>
         </div>
         <div class="navbar-end gap-2 mr-4">
             <div class="search">
                 <form class="relative max-w-md mx-auto" action="{{ route('search') }}" method="GET">
                     <label for="search" class="sr-only">Search</label>
                     <div class="relative">
-                        
+
                         <!-- Ícone -->
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                             <svg class="w-4 h-4 text-body" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -154,23 +157,23 @@
             </p>
         </div>
     </footer>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const urlParams = new URLSearchParams(window.location.search);
-        
-        if (urlParams.get('focar') === 'true') {
-            const textarea = document.getElementById('chirperMessage');
-            
-            if (textarea) {
-                // Pequeno atraso para garantir que o navegador renderizou o elemento
-                setTimeout(() => {
-                    textarea.focus();
-                    textarea.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 100);
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const urlParams = new URLSearchParams(window.location.search);
+
+            if (urlParams.get('focar') === 'true') {
+                const textarea = document.getElementById('chirperMessage');
+
+                if (textarea) {
+                    // Pequeno atraso para garantir que o navegador renderizou o elemento
+                    setTimeout(() => {
+                        textarea.focus();
+                        textarea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 100);
+                }
             }
-        }
-    });
-</script>
+        });
+    </script>
 
 </body>
 

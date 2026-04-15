@@ -7,14 +7,24 @@
             <!-- HEADER -->
             <div class="flex items-center justify-between mb-6">
                 <h2 class="text-2xl font-semibold text-gray-800">Settings</h2>
-
-                <img src="https://avatars.laravel.cloud/{{ urlencode($user->email) }}?vibe=ocean"
-                    class="w-14 h-14 rounded-full border border-gray-300">
             </div>
 
-            <form action="{{ route('settings.update') }}" method="POST" autocomplete="off">
+            <form action="{{ route('settings.update') }}" method="POST" enctype="multipart/form-data"
+                autocomplete="off">
                 @csrf
                 @method('PUT')
+
+
+                <div class="flex items-center gap-4 mb-6">
+                    <img src="{{ $user->avatar
+                    ? asset('storage/' . $user->avatar)
+                    : 'https://avatars.laravel.cloud/' . urlencode($user->email) . '?vibe=ocean' }}"
+                        class="w-14 h-14 rounded-full border border-gray-300 object-cover">
+                    <div>
+                        <label class="text-sm text-gray-600">Profile image</label>
+                        <input type="file" name="avatar" class="input input-bordered w-full">
+                    </div>
+                </div>
 
                 <!-- BASIC INFO -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -43,6 +53,12 @@
                             class="input input-bordered w-full">
                     </div>
 
+                    <div class="md:col-span-2">
+                        <label class="text-sm text-gray-600">Bio</label>
+                        <textarea name="bio" class="input input-bordered w-full h-24 p-4"
+                            placeholder="Write something about you...">{{ old('bio', $user->bio) }}</textarea>
+                    </div>
+
                     <div>
                         <label class="text-sm text-gray-600">City</label>
                         <input type="text" name="city" value="{{ old('city', $user->city) }}"
@@ -62,20 +78,14 @@
                     <h3 class="text-md font-semibold text-gray-700 mb-3">Change Password</h3>
 
                     <div class="space-y-3">
-<input type="password" name="current_password"
-    class="input input-bordered w-full"
-    placeholder="Current password"
-    autocomplete="new-password">
+                        <input type="password" name="current_password" class="input input-bordered w-full"
+                            placeholder="Current password" autocomplete="new-password">
 
-<input type="password" name="password"
-    class="input input-bordered w-full"
-    placeholder="New password"
-    autocomplete="new-password">
+                        <input type="password" name="password" class="input input-bordered w-full"
+                            placeholder="New password" autocomplete="new-password">
 
-<input type="password" name="password_confirmation"
-    class="input input-bordered w-full"
-    placeholder="Confirm password"
-    autocomplete="new-password">
+                        <input type="password" name="password_confirmation" class="input input-bordered w-full"
+                            placeholder="Confirm password" autocomplete="new-password">
                     </div>
                 </div>
 

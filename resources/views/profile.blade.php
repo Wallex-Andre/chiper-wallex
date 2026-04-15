@@ -10,7 +10,7 @@
                     <!-- AVATAR -->
                     <div class="relative">
                         <img class="w-28 h-28 object-cover rounded-full border-4 border-white shadow-md"
-                            src="https://avatars.laravel.cloud/{{ urlencode($user->email) }}?vibe=ocean" alt="profile">
+                            src="{{ $user->avatar_url }}" alt="profile">
                     </div>
 
                     <!-- INFO -->
@@ -23,8 +23,9 @@
 
                         <!-- EXTRA INFO -->
                         <div class="mt-3 text-sm text-gray-500 space-y-1">
-                            <p>{{ $user->email }}</p>
-                            <p>{{ $user->country }}</p>
+                            <p>Email: {{ $user->email }}</p>
+                            <p>Country: {{ $user->country }}</p>
+                            <p>Bio: {{ $user->bio }}</p>
                         </div>
 
                     </div>

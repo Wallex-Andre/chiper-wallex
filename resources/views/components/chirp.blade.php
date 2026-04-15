@@ -7,8 +7,9 @@
                 <div class="avatar">
                     <div class="size-10 rounded-full">
                         <a href="{{ route('profile', $chirp->user) }}">
-                            <img src="https://avatars.laravel.cloud/{{ urlencode($chirp->user->email) }}?vibe=ocean"
+                            <img src="{{ $chirp->user->avatar_url }}"
                                 alt="{{ $chirp->user->name }}'s avatar" class="rounded-full" />
+                                
                         </a>
                     </div>
                 </div>
