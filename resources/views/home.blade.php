@@ -66,7 +66,7 @@
         </div>
 
         <!-- CTA -->
-        <a href="{{ auth()->check() ? '/' : route('login') }}"
+        <a href="{{ auth()->check() ? '/' : route('register') }}"
            class="bg-white text-[#5580d2] px-8 py-3 rounded-xl font-semibold shadow-lg hover:scale-105 transition inline-block">
 
             {{ auth()->check() ? 'Enter Feed' : 'Start Now' }}
