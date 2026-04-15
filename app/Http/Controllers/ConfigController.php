@@ -77,28 +77,30 @@ class ConfigController extends Controller
             'bio' => 'nullable|string|max:500',
         ]);
 
-        $data = collect($validated)->except(['password', 'current_password'])->toArray();
-
-        $user->update($data);
+        if ($request->has('remove_avatar')) {
+            $user->avatar = null;
+        }
 
         if ($request->hasFile('avatar')) {
-
             $file = $request->file('avatar');
 
             $filename = time().'.'.$file->getClientOriginalExtension();
 
             $path = $file->storeAs('avatars', $filename, 'public');
 
-            $user->update([
-                'avatar' => $path,
-            ]);
+            $user->avatar = $path;
         }
 
         if (! empty($validated['password'])) {
-            $user->update([
-                'password' => Hash::make($validated['password']),
-            ]);
+            $user->password = Hash::make($validated['password']);
         }
+
+        $user->fill(collect($validated)->except([
+            'password',
+            'current_password',
+        ])->toArray());
+
+        $user->save();
 
         return redirect('/settings')->with('success', 'Profile updated!');
     }

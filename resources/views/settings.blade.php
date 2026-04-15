@@ -16,15 +16,50 @@
 
 
                 <div class="flex items-center gap-4 mb-6">
-                    <img src="{{ $user->avatar
-                    ? asset('storage/' . $user->avatar)
-                    : 'https://avatars.laravel.cloud/' . urlencode($user->email) . '?vibe=ocean' }}"
+
+                    <img id="avatarPreview" src="{{ $user->avatar
+    ? asset('storage/' . $user->avatar)
+    : 'https://avatars.laravel.cloud/' . urlencode($user->email) . '?vibe=ocean' }}"
                         class="w-14 h-14 rounded-full border border-gray-300 object-cover">
+
                     <div>
                         <label class="text-sm text-gray-600">Profile image</label>
-                        <input type="file" name="avatar" class="input input-bordered w-full">
+
+                        <div class="flex items-center gap-2 mt-2">
+
+                            <!-- UPLOAD -->
+                            <label class="btn btn-outline btn-sm cursor-pointer">
+                                Choose image
+                                <input type="file" name="avatar" class="hidden" id="avatarInput">
+                            </label>
+
+                            <!-- REMOVE -->
+                            @if($user->avatar)
+                                <label class="flex h-8 items-center gap-2 text-sm btn bg-red-500 text-white cursor-pointer">
+                                    <input type="checkbox" name="remove_avatar" value="1">
+                                    Remove
+                                </label>
+                            @endif
+
+                        </div>
                     </div>
                 </div>
+
+                <script>
+                    document.getElementById('avatarInput').addEventListener('change', function () {
+                        const file = this.files[0];
+
+                        if (file) {
+                            const reader = new FileReader();
+
+                            reader.onload = function (e) {
+                                document.getElementById('avatarPreview').src = e.target.result;
+                            };
+
+                            reader.readAsDataURL(file);
+                        }
+                    });
+                </script>
 
                 <!-- BASIC INFO -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
