@@ -9,6 +9,8 @@ class Chirp extends Model
 {
     protected $fillable = [
         'message',
+        'audio',
+        'image',
     ];
 
     public function user(): BelongsTo 

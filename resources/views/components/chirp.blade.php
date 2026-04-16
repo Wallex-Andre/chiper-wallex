@@ -1,5 +1,5 @@
 @props(['chirp'])
-
+@php use Illuminate\Support\Facades\Storage; @endphp
 <div class="card bg-base-100">
     <div class="card-body">
         <div class="flex space-x-3">
@@ -7,9 +7,9 @@
                 <div class="avatar">
                     <div class="size-10 rounded-full">
                         <a href="{{ route('profile', $chirp->user) }}">
-                            <img src="{{ $chirp->user->avatar_url }}"
-                                alt="{{ $chirp->user->name }}'s avatar" class="rounded-full" />
-                                
+                            <img src="{{ $chirp->user->avatar_url }}" alt="{{ $chirp->user->name }}'s avatar"
+                                class="rounded-full" />
+
                         </a>
                     </div>
                 </div>
@@ -63,6 +63,15 @@
                 <p class="wrap-break-word min-w-0 mt-1">
                     {{ $chirp->message }}
                 </p>
+                @if($chirp->image)
+                    <img src="{{ Storage::url($chirp->image) }}" class="w-32 mt-2">
+                @endif
+
+                @if($chirp->audio)
+                    <audio controls class="mt-2">
+                        <source src="{{ Storage::url($chirp->audio) }}">
+                    </audio>
+                @endif
             </div>
         </div>
     </div>

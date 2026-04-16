@@ -6,6 +6,7 @@ use App\Models\Chirp;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ChirpController extends Controller
 {
@@ -40,10 +41,17 @@ class ChirpController extends Controller
     {
         $validated = $request->validate([
             'message' => 'required|string|max:255',
-        ], [
-            'message.required' => 'Please write something to chirp!',
-            'message.max' => 'Chirps must be 255 characters or less.',
+            'image' => 'nullable|image|max:10248',
+            'audio' => 'nullable|mimes:mp3,wav|max:10248',
         ]);
+
+        if ($request->hasFile('image')) {
+            $validated['image'] = $request->file('image')->store('chirp-images', 'public');
+        }
+
+        if ($request->hasFile('audio')) {
+            $validated['audio'] = $request->file('audio')->store('chirp-audio', 'public');
+        }
 
         auth()->user()->chirps()->create($validated);
 
@@ -86,14 +94,47 @@ class ChirpController extends Controller
 
         $validated = $request->validate([
             'message' => 'required|string|max:255',
-        ], [
-            'message.required' => 'Please write something to chirp!',
-            'message.max' => 'Chirps must be 255 characters or less.',
+            'image' => 'nullable|image|max:5048',
+            'audio' => 'nullable|mimes:mp3,wav|max:5048',
+            'remove_image' => 'nullable',
+            'remove_audio' => 'nullable',
         ]);
 
-        $chirp->update($validated);
+        if ($request->has('remove_image')) {
+            if ($chirp->image) {
+                \Storage::disk('public')->delete($chirp->image);
+            }
+            $chirp->image = null;
+        }
 
-        return redirect('/')->with('success', 'Your chirp has been update!');
+        if ($request->has('remove_audio')) {
+            if ($chirp->audio) {
+                \Storage::disk('public')->delete($chirp->audio);
+            }
+            $chirp->audio = null;
+        }
+
+        if ($request->hasFile('image')) {
+            if ($chirp->image) {
+                \Storage::disk('public')->delete($chirp->image);
+            }
+
+            $chirp->image = $request->file('image')->store('chirp-images', 'public');
+        }
+
+        if ($request->hasFile('audio')) {
+            if ($chirp->audio) {
+                \Storage::disk('public')->delete($chirp->audio);
+            }
+
+            $chirp->audio = $request->file('audio')->store('chirp-audio', 'public');
+        }
+
+        $chirp->message = $validated['message'];
+
+        $chirp->save();
+
+        return redirect('/')->with('success', 'Your chirp has been updated!');
     }
 
     public function search(Request $request)

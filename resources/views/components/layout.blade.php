@@ -174,7 +174,19 @@
             }
         });
     </script>
+    <script>
+        document.querySelector('input[name="image"]').addEventListener('change', function (e) {
+            const img = document.getElementById('preview-image');
+            img.src = URL.createObjectURL(e.target.files[0]);
+            img.classList.remove('hidden');
+        });
 
+        document.querySelector('input[name="audio"]').addEventListener('change', function (e) {
+            const audio = document.getElementById('preview-audio');
+            audio.src = URL.createObjectURL(e.target.files[0]);
+            audio.classList.remove('hidden');
+        });
+    </script>
 </body>
 
 </html>

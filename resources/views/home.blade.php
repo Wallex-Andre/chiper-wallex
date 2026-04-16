@@ -3,85 +3,166 @@
         Home Feed
     </x-slot:title>
 
-@if (!auth()->check() || request()->get('about'))
+    @if (!auth()->check() || request()->get('about'))
 
-<div class="min-h-screen w-full flex items-center justify-center text-white relative overflow-hidden"
-     style="background: linear-gradient(135deg, #3f6fd1 0%, #5580d2 50%, #7aa0f2 100%);">
+    <div class="min-h-screen bg-base-200 flex items-center justify-center px-6 py-20">
 
-    <!-- Background decor -->
-    <div class="absolute inset-0 opacity-10">
-        <div class="absolute top-20 left-20 w-72 h-72 bg-white rounded-full blur-3xl"></div>
-        <div class="absolute bottom-20 right-20 w-72 h-72 bg-white rounded-full blur-3xl"></div>
-    </div>
+    <div class="max-w-5xl w-full space-y-10">
 
-    <div class="relative max-w-4xl px-6 text-center">
+        <!-- HEADER -->
+        <div class="text-center space-y-4">
+            <h1 class="text-5xl font-bold">Chirper</h1>
 
-        <!-- TITLE -->
-        <h1 class="text-5xl font-bold tracking-tight mb-4">
-            Chirper
-        </h1>
-        <p class="text-lg opacity-90 mb-10 max-w-2xl mx-auto">
-            A modern, lightweight social platform designed for fast, clean and meaningful communication.
-            Share thoughts instantly, explore users, and build your digital presence.
-        </p>
-
-        <!-- GRID CARDS -->
-        <div class="grid md:grid-cols-3 gap-4 mb-10 text-left">
-
-            <div class="bg-white/10 backdrop-blur-md p-5 rounded-2xl border border-white/10">
-                <h3 class="font-semibold mb-2">⚡ Fast Posting</h3>
-                <p class="text-sm opacity-90">
-                    Create and share chirps in seconds with a clean and distraction-free interface.
-                </p>
-            </div>
-
-            <div class="bg-white/10 backdrop-blur-md p-5 rounded-2xl border border-white/10">
-                <h3 class="font-semibold mb-2">👤 Profiles</h3>
-                <p class="text-sm opacity-90">
-                    Customize your profile with avatar, bio and personal information.
-                </p>
-            </div>
-
-            <div class="bg-white/10 backdrop-blur-md p-5 rounded-2xl border border-white/10">
-                <h3 class="font-semibold mb-2">🌐 Feed</h3>
-                <p class="text-sm opacity-90">
-                    Discover posts from other users in a clean, chronological timeline.
-                </p>
-            </div>
-
-        </div>
-
-        <!-- DESCRIPTION BOX -->
-        <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/10 text-left mb-10">
-
-            <h2 class="text-xl font-semibold mb-3">How Chirper works</h2>
-
-            <p class="text-sm opacity-90 leading-relaxed">
-                Chirper is built to be simple and fast.
-                After creating an account, you can immediately start posting short messages called “chirps”.
-                Each chirp appears in the global feed and on your profile, allowing others to interact and explore your content.
-                The system is optimized for clarity, speed, and a smooth user experience.
+            <p class="text-base-content/70 text-lg max-w-2xl mx-auto">
+                A functional academic project designed to demonstrate backend development concepts,
+                authentication systems, and data management using a modern PHP framework.
             </p>
 
+            <div class="flex justify-center gap-3 flex-wrap mt-4">
+                <a href="https://chirper-main-wallex.free.laravel.cloud/"
+                   target="_blank"
+                   class="btn btn-primary text-white">
+                    Live Version
+                </a>
+
+                <a href="https://github.com/Wallex-Andre"
+                   target="_blank"
+                   class="btn btn-outline text-white border-white hover:bg-white hover:text-black">
+                    Source Code
+                </a>
+            </div>
         </div>
 
-        <!-- CTA -->
-        <a href="{{ auth()->check() ? '/' : route('register') }}"
-           class="bg-white text-[#5580d2] px-8 py-3 rounded-xl font-semibold shadow-lg hover:scale-105 transition inline-block">
+        <!-- ABOUT ME -->
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body flex flex-col md:flex-row gap-6 items-center">
 
-            {{ auth()->check() ? 'Enter Feed' : 'Start Now' }}
+                <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-base-300">
+                    <img src="{{ asset('images/profile.jpg') }}" class="w-full h-full object-cover">
+                </div>
 
-        </a>
+                <div>
+                    <h2 class="text-2xl font-bold">About Me</h2>
 
-        <p class="mt-4 text-sm opacity-80">
-            Built for simplicity. Designed for expression.
-        </p>
+                    <p class="text-base-content/70 mt-2 leading-relaxed">
+                        My name is <strong>Wallex</strong>, and I am a Software Development student focused on
+                        learning system architecture, programming logic, and database concepts.
+                    </p>
+
+                    <p class="text-base-content/70 mt-2 leading-relaxed">
+                        This project was developed during a learning program based on the Laravel Bootcamp,
+                        where I practiced backend concepts and extended the project with additional features.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARDS -->
+        <div class="grid md:grid-cols-3 gap-6">
+
+            <div class="card bg-base-100 shadow hover:scale-105 transition">
+                <div class="card-body">
+                    <h3 class="font-bold text-lg">Learning Process</h3>
+                    <p class="text-sm text-base-content/70">
+                        Developed as part of an academic training process focused on backend development.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card bg-base-100 shadow hover:scale-105 transition">
+                <div class="card-body">
+                    <h3 class="font-bold text-lg">Core Concepts</h3>
+                    <p class="text-sm text-base-content/70">
+                        Covers authentication, CRUD operations, validation, and data relationships.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card bg-base-100 shadow hover:scale-105 transition">
+                <div class="card-body">
+                    <h3 class="font-bold text-lg">System Design</h3>
+                    <p class="text-sm text-base-content/70">
+                        Structured using MVC architecture and relational database modeling.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- PROJECT DETAILS -->
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body space-y-4">
+
+                <h2 class="text-2xl font-bold">Project Overview</h2>
+
+                <p class="text-base-content/70 leading-relaxed">
+                    This system allows users to create, edit, and manage content entries with support for
+                    text and media attachments. It also includes authentication, profile management, and
+                    search functionality.
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6 text-sm">
+
+                    <div>
+                        <h3 class="font-semibold mb-2">Main Features</h3>
+                        <ul class="list-disc ml-5 text-base-content/70 space-y-1">
+                            <li>Create, edit, and delete posts</li>
+                            <li>Global content feed</li>
+                            <li>Media upload (images and audio)</li>
+                            <li>Preview before submission</li>
+                            <li>Remove or replace media in edit mode</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="font-semibold mb-2">User Management</h3>
+                        <ul class="list-disc ml-5 text-base-content/70 space-y-1">
+                            <li>User registration and login</li>
+                            <li>Profile editing</li>
+                            <li>Profile image upload</li>
+                            <li>View other user profiles</li>
+                            <li>Filter content by user</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="font-semibold mb-2">Search System</h3>
+                        <ul class="list-disc ml-5 text-base-content/70 space-y-1">
+                            <li>Search by text content</li>
+                            <li>Search users by name</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="font-semibold mb-2">Security & Validation</h3>
+                        <ul class="list-disc ml-5 text-base-content/70 space-y-1">
+                            <li>Authorization policies</li>
+                            <li>Input validation rules</li>
+                            <li>File upload validation</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- TECH -->
+        <div class="text-center">
+            <h2 class="text-xl font-bold mb-4">Technologies</h2>
+            <div class="flex justify-center flex-wrap gap-2">
+                <span class="badge badge-outline">PHP</span>
+                <span class="badge badge-outline">Laravel</span>
+                <span class="badge badge-outline">MySQL</span>
+                <span class="badge badge-outline">HTML</span>
+                <span class="badge badge-outline">CSS</span>
+                <span class="badge badge-outline">JavaScript</span>
+            </div>
+        </div>
 
     </div>
-
 </div>
 
-@else
+    @else
 
         <!-- HoME -->
         <div class="max-w-2xl mx-auto">
@@ -90,7 +171,8 @@
             <!-- Chirp Form -->
             <div class="card bg-base-100 shadow mt-8">
                 <div class="card-body">
-                    <form method="POST" action="/chirps">
+                    <form method="POST" enctype="multipart/form-data" action="/chirps">
+
                         @csrf
                         <div class="form-control w-full">
                             <textarea name="message" placeholder="What's on your mind?"
@@ -105,6 +187,25 @@
                         </div>
 
                         <div class="mt-4 flex items-center justify-end">
+                            <div class="mt-2 m-2">
+                                <label class="form-control w-full">
+                                    <div class="label">
+                                        <span class="label-text">Image</span>
+                                    </div>
+                                    <input type="file" name="image" accept="image/*"
+                                        class="file-input file-input-bordered w-full" />
+                                </label>
+                                <label class="form-control w-full">
+                                    <div class="label">
+                                        <span class="label-text">Audio</span>
+                                    </div>
+                                    <input type="file" name="audio" accept="audio/*"
+                                        class="file-input file-input-bordered w-full" />
+                                </label>
+
+                                <img id="preview-image" class="hidden w-32 mt-2 rounded">
+                                <audio id="preview-audio" controls class="hidden mt-2"></audio>
+                            </div>
                             <button type="submit" class="btn btn-primary btn-sm">
                                 Chirp
                             </button>
